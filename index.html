@@ -653,11 +653,9 @@ function sliderLoad(){
         function drawMap() {
           var randomMarker = mapLocations[Math.floor(Math.random()*mapLocations.length)];
 
-          window.myMap = window.myMap || new google.maps.Map(document.getElementById('map'), {
-            zoom: 4
-          });
+          
 
-          window.myMap.setCenter(new google.maps.LatLng(randomMarker.lat, randomMarker.lng));
+          window.myMap.panTo(new google.maps.LatLng(randomMarker.lat, randomMarker.lng));
 
           var infowindow = new google.maps.InfoWindow({
             content: randomMarker.content
@@ -699,7 +697,12 @@ function sliderLoad(){
           });
         }
 
-        drawMap();
+        window.myMap = window.myMap || new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -25.363, lng: 131.044},
+          zoom: 4
+        });
+
+        setTimeout(drawMap, 2000);
 
         //var intervalID = window.setInterval(drawMap, 5000);
 
