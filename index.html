@@ -1,6 +1,7 @@
 <html>
   <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="info-bubble.min.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Info windows</title>
@@ -13,7 +14,10 @@
         margin: 0;
         padding: 0;
       }
-       #slider-container {
+      #infobubble-container {
+        visibility: hidden;
+      }
+      #slider-container {
         position: relative;
         overflow: hidden;
         margin: 0 auto;
@@ -36,6 +40,9 @@
         list-style-type: none;
         margin:0px 1px;
       }
+      .js-info-bubble-close{
+        display: none;
+      }
       </style>
 <script>
 function sliderLoad(){
@@ -50,6 +57,8 @@ function sliderLoad(){
   $('#ul-slider').css({ width: sliderUlWidth, marginLeft: - slideWidth });
 
   $('#ul-slider li:last-child').prependTo('#ul-slider');
+
+  $('#infobubble-container').css({ visibility: 'visible' });
 
   function moveLeft() {
     $('#ul-slider').animate({
@@ -87,6 +96,7 @@ function sliderLoad(){
           lat:34.019657,
           lng:-118.280869,
           content: 
+          '<div id="infobubble-container">'+
           '<div id="slider-container">'+
             '<ul id="ul-slider">'+
                 '<li class="li-slider first">'+
@@ -104,42 +114,42 @@ function sliderLoad(){
                 '<source src="squirrel.mov">'+
                 '</video>'+
                 '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+                
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+                
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+
+                // '<li class="li-slider">'+
+                // '<video width="243" height="432">'+
+                // '<source src="talia_dog.mov">'+
+                // '</video>'+
+                // '</li>'+
+                // '<li class="li-slider">'+
+                // '<video width="243" height="432">'+
+                // '<source src="squirrel.mov">'+
+                // '</video>'+
+                // '</li>'+                
+                // '<li class="li-slider">'+
+                // '<video width="243" height="432">'+
+                // '<source src="talia_dog.mov">'+
+                // '</video>'+
+                // '</li>'+
+                // '<li class="li-slider">'+
+                // '<video width="243" height="432">'+
+                // '<source src="squirrel.mov">'+
+                // '</video>'+
+                // '</li>'+                
+                // '<li class="li-slider">'+
+                // '<video width="243" height="432">'+
+                // '<source src="talia_dog.mov">'+
+                // '</video>'+
+                // '</li>'+
+                // '<li class="li-slider">'+
+                // '<video width="243" height="432">'+
+                // '<source src="squirrel.mov">'+
+                // '</video>'+
+                // '</li>'+
+                // '</li>'+
+                // '<li class="li-slider">'+
+                // '<video width="243" height="432">'+
+                // '<source src="squirrel.mov">'+
+                // '</video>'+
+                // '</li>'+
             '</ul>'+
             '</div>'+
             '<div class="thumbnails">'+
@@ -195,237 +205,238 @@ function sliderLoad(){
                 '</video>'+
               '</li>'+            
             '</ul>'+
-          '</div>'   
+          '</div>'+
+          '</div>'
         },
-        {
-          name: "Uluru",
-          lat: -25.363, 
-          lng: 131.044,
-          content:
-          '<div id="slider-container">'+
-            '<ul id="ul-slider">'+
-                '<li class="li-slider first">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dancing.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+                
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+                
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+
-            '</ul>'+
-            '</div>'+
-            '<div class="thumbnails">'+
-            '<ul id="navlist">'+
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dancing.mov">'+
-                '</video>'+
-              '</li>'+
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-              '</li>'+              
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-              '</li>'+             
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dancing.mov">'+
-                '</video>'+
-              '</li>'+
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-              '</li>'+              
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-              '</li>'+           
-               '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dancing.mov">'+
-                '</video>'+
-              '</li>'+
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-              '</li>'+              
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-              '</li>'+ 
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-              '</li>'+           
-            '</ul>'+
-          '</div>'   
-        },
-        {
-          name: "Manhattan",
-          lat: 40.758896,
-          lng: -73.985130,
-          content: 
-          '<div id="slider-container">'+
-            '<ul id="ul-slider">'+
-                '<li class="li-slider first">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dancing.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+                
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+                
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+
-                '</li>'+
-                '<li class="li-slider">'+
-                '<video width="243" height="432">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-                '</li>'+
-            '</ul>'+
-            '</div>'+
-            '<div class="thumbnails">'+
-            '<ul id="navlist">'+
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dancing.mov">'+
-                '</video>'+
-              '</li>'+
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-              '</li>'+              
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-              '</li>'+             
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dancing.mov">'+
-                '</video>'+
-              '</li>'+
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-              '</li>'+              
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-              '</li>'+           
-               '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dancing.mov">'+
-                '</video>'+
-              '</li>'+
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="talia_dog.mov">'+
-                '</video>'+
-              '</li>'+              
-              '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-              '</li>'+ 
-               '<li>'+
-                '<video width="48" height="86">'+
-                '<source src="squirrel.mov">'+
-                '</video>'+
-              '</li>'+            
-            '</ul>'+
-          '</div>'   
-        }
+        // {
+        //   name: "Uluru",
+        //   lat: -25.363, 
+        //   lng: 131.044,
+        //   content:
+        //   '<div id="slider-container">'+
+        //     '<ul id="ul-slider">'+
+        //         '<li class="li-slider first">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dancing.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+                
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+                
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //     '</ul>'+
+        //     '</div>'+
+        //     '<div class="thumbnails">'+
+        //     '<ul id="navlist">'+
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dancing.mov">'+
+        //         '</video>'+
+        //       '</li>'+
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //       '</li>'+              
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //       '</li>'+             
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dancing.mov">'+
+        //         '</video>'+
+        //       '</li>'+
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //       '</li>'+              
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //       '</li>'+           
+        //        '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dancing.mov">'+
+        //         '</video>'+
+        //       '</li>'+
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //       '</li>'+              
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //       '</li>'+ 
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //       '</li>'+           
+        //     '</ul>'+
+        //   '</div>'   
+        // },
+        // {
+        //   name: "Manhattan",
+        //   lat: 40.758896,
+        //   lng: -73.985130,
+        //   content: 
+        //   '<div id="slider-container">'+
+        //     '<ul id="ul-slider">'+
+        //         '<li class="li-slider first">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dancing.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+                
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+                
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //         '</li>'+
+        //         '<li class="li-slider">'+
+        //         '<video width="243" height="432">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //         '</li>'+
+        //     '</ul>'+
+        //     '</div>'+
+        //     '<div class="thumbnails">'+
+        //     '<ul id="navlist">'+
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dancing.mov">'+
+        //         '</video>'+
+        //       '</li>'+
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //       '</li>'+              
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //       '</li>'+             
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dancing.mov">'+
+        //         '</video>'+
+        //       '</li>'+
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //       '</li>'+              
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //       '</li>'+           
+        //        '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dancing.mov">'+
+        //         '</video>'+
+        //       '</li>'+
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="talia_dog.mov">'+
+        //         '</video>'+
+        //       '</li>'+              
+        //       '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //       '</li>'+ 
+        //        '<li>'+
+        //         '<video width="48" height="86">'+
+        //         '<source src="squirrel.mov">'+
+        //         '</video>'+
+        //       '</li>'+            
+        //     '</ul>'+
+        //   '</div>'   
+        // },
         // { name: "Salt lake City",
         //   lat: 40.759434, 
         //   lng: -111.888222
@@ -651,15 +662,24 @@ function sliderLoad(){
       function initMap() {
        
         function drawMap() {
-          var randomMarker = mapLocations[Math.floor(Math.random()*mapLocations.length)];
-
-          
+          var randomMarker = mapLocations[Math.floor(Math.random()*mapLocations.length)];      
 
           window.myMap.panTo(new google.maps.LatLng(randomMarker.lat, randomMarker.lng));
-
-          var infowindow = new google.maps.InfoWindow({
-            content: randomMarker.content
+          // var infowindow = new google.maps.InfoWindow({
+          //   content: randomMarker.content,
+          //   //pixelOffset: new google.maps.Size(100,100)
+          // });
+          var infoBubble = new InfoBubble({
+            maxHeight: 600,
+            maxWidth: 600,
+            content: randomMarker.content,
+            backgroundColor: 'transparent',
+            borderWidth: 0,
+            borderColor: 'transparent',
+            borderRadius: 0,
+            shadowStyle: 0,
           });
+
           if(window.myMarker){
             window.myMarker.setMap(null);
           }
@@ -670,29 +690,42 @@ function sliderLoad(){
               map: window.myMap,
               title: randomMarker.name
             });
-            infowindow.open(window.myMap, window.myMarker);
-            google.maps.event.addListener(infowindow, 'domready', function() {
-              sliderLoad();
-
-              var videos = $('#ul-slider li video');
-              var currentVideo = 2;
-              function hookVideo() {
-                $(videos[currentVideo-1]).trigger('play');
-                // console.log('video ' + currentVideo + '/' + videos.length + ' is playing')
-                videos[currentVideo-1].addEventListener('ended', function(e) {
-                  
-                  if(currentVideo < videos.length) {
-                    window.moveRight();
-                    currentVideo++;
-                    $(videos[currentVideo-1]).trigger('play');
-                    return hookVideo();
-                  } else {
-                    currentVideo = 2;
-                    return drawMap();
-                  }
-                });
-              }
-              hookVideo();
+            // if (window.myMarker==randomMarker.last){
+            //   mapLocations[Math.floor(Math.random()*mapLocations.length)]; 
+            // }
+            // if (mapLocations.name=="Uluru"){
+            //   mapLocations[Math.floor(Math.random()*mapLocations.length)]; 
+            // }
+           // infowindow.open(window.myMap, window.myMarker);
+            infoBubble.open(window.myMap, window.myMarker);
+            google.maps.event.addListener(infoBubble, 'domready', function() {
+              console.log('dropped one');
+              setTimeout(function() {
+                console.log('i am in timeout');
+                sliderLoad();
+                $('#infobubble-container').css({ visibility: 'visible' });
+//never start on au
+//never replay same area x2
+                var videos = $('#ul-slider li video');
+                var currentVideo = 2;
+                function hookVideo() {
+                  $(videos[currentVideo-1]).trigger('play');
+                  // console.log('video ' + currentVideo + '/' + videos.length + ' is playing')
+                  videos[currentVideo-1].addEventListener('ended', function(e) {
+                    if(currentVideo < videos.length) {
+                      window.moveRight();
+                      currentVideo++;
+                      $(videos[currentVideo-1]).trigger('play');
+                      return hookVideo();
+                    } else {
+                      currentVideo = 2;
+                      infoBubble.close();
+                      return setTimeout(drawMap, 1000);
+                    }
+                  });
+                }
+                hookVideo();
+              }, 2000);
             });
           });
         }
@@ -702,7 +735,7 @@ function sliderLoad(){
           zoom: 4
         });
 
-        setTimeout(drawMap, 2000);
+        setTimeout(drawMap, 1000);
 
         //var intervalID = window.setInterval(drawMap, 5000);
 
