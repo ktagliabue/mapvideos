@@ -9,6 +9,25 @@ function initMap() {
     });
   }
 
+  function hookVideo(videos, index /* expects 1 based int */, infoBubble, markerName) {
+    console.log(videos);
+    $(videos[index-1]).trigger('play');
+    $(videos[index-1]).css( "border", "1px solid red" );
+    videos[index-1].addEventListener('ended', function(e) {
+      if(index < videos.length) {
+        window.moveRight();
+        index++;
+        $(videos[index-1]).trigger('play');
+        return hookVideo(videos, index, infoBubble, markerName);
+      } else {
+        index = 2;
+        infoBubble.close();
+        $('#infobubble-container-' + markerName.replace(/\s+/g, '')).remove();
+        return setTimeout( getRandomLocation, 1000);
+      }
+    });
+  }
+
   function drawMap(randomMarker) {
     window.myMap.panTo(new google.maps.LatLng(randomMarker.lat, randomMarker.lng));
     // var infowindow = new google.maps.InfoWindow({
@@ -36,41 +55,19 @@ function initMap() {
         map: window.myMap,
         title: randomMarker.name
       });
-      // if (window.myMarker==randomMarker.last){
-      //   mapLocations[Math.floor(Math.random()*mapLocations.length)]; 
-      // }
-        //never start on au
-        //never replay same area x2
-      // if (mapLocations.name=="Uluru"){
-      //   mapLocations[Math.floor(Math.random()*mapLocations.length)]; 
-      // }
-     // infowindow.open(window.myMap, window.myMarker);
+      //never start on au
+      //never replay same area x2
       infoBubble.open(window.myMap, window.myMarker);
       google.maps.event.addListener(infoBubble, 'domready', function() {
-        console.log('dropped one');
         setTimeout(function() {
-          console.log('i am in timeout');
           sliderLoad();
-          $('#infobubble-container').css({ visibility: 'visible' });
-          var videos = $('#ul-slider li video');
-          var currentVideo = 2;
-          function hookVideo() {
-            $(videos[currentVideo-1]).trigger('play');
-            // console.log('video ' + currentVideo + '/' + videos.length + ' is playing')
-            videos[currentVideo-1].addEventListener('ended', function(e) {
-              if(currentVideo < videos.length) {
-                window.moveRight();
-                currentVideo++;
-                $(videos[currentVideo-1]).trigger('play');
-                return hookVideo();
-              } else {
-                currentVideo = 2;
-                infoBubble.close();
-                return setTimeout( getRandomLocation, 1000);
-              }
-            });
-          }
-          hookVideo();
+          var ib = $('#infobubble-container-' + randomMarker.name.replace(/\s+/g, ''))
+          ib.css({ visibility: 'visible' });
+          var videos = $(ib).find('#ul-slider li video');
+          var current = {
+            video: 2
+          };
+          hookVideo(videos, current.video, infoBubble, randomMarker.name);
         }, 2000);
       });
     });
