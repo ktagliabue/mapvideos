@@ -6,6 +6,10 @@
         margin: 0;
         padding: 0;
       }
+      .infobubble-transparent {
+        opacity: 0;
+        transition: opacity 1s;
+      }
       #infobubble-container {
         visibility: hidden;
       }

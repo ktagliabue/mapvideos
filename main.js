@@ -1,18 +1,43 @@
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
 function initMap() {
+  var listofVideos=[];
+  var nextVideo=0;
+  function playNextVideo(){
+    drawMap(listofVideos[nextVideo]);
+    nextVideo++;
+    if(nextVideo==listofVideos.length){
+      nextVideo=0;
+    }
+  }
+
   function getRandomLocation() {
     $.ajax({
       dataType: "json",
       url: "https://videos-5a2ff.firebaseio.com/locations.json",
       success: function(data){
-        drawMap(data[Math.floor(Math.random()*data.length)])
+        listofVideos = shuffle(data);
+        console.log(data);
+        console.log(listofVideos);
+        //drawMap(data[Math.floor(Math.random()*data.length)])
+        playNextVideo();
       }
     });
   }
 
+
+
   function hookVideo(videos, index /* expects 1 based int */, infoBubble, markerName) {
     console.log(videos);
     $(videos[index-1]).trigger('play');
-    $(videos[index-1]).css( "border", "1px solid red" );
     videos[index-1].addEventListener('ended', function(e) {
       if(index < videos.length) {
         window.moveRight();
@@ -23,7 +48,7 @@ function initMap() {
         index = 2;
         infoBubble.close();
         $('#infobubble-container-' + markerName.replace(/\s+/g, '')).remove();
-        return setTimeout( getRandomLocation, 1000);
+        return setTimeout( playNextVideo, 1000);
       }
     });
   }
@@ -62,7 +87,7 @@ function initMap() {
         setTimeout(function() {
           sliderLoad();
           var ib = $('#infobubble-container-' + randomMarker.name.replace(/\s+/g, ''))
-          ib.css({ visibility: 'visible' });
+          ib.css({ opacity: 1 });
           var videos = $(ib).find('#ul-slider li video');
           var current = {
             video: 2
@@ -80,6 +105,7 @@ function initMap() {
 
   //setTimeout(drawMap, 1000);
   getRandomLocation();
+
 
   //var intervalID = window.setInterval(drawMap, 5000);
 
