@@ -8,11 +8,15 @@ function shuffle(a) {
     }
     return a;
 }
+//marker drops then zoom then slider 
+//change marker with thumbnail of next video
+
 function initMap() {
   var listofVideos=[];
   var nextVideo=0;
   function playNextVideo(){
-    drawMap(listofVideos[nextVideo]);
+    window.randomMarker = listofVideos[nextVideo];
+    drawMap();
     nextVideo++;
     if(nextVideo==listofVideos.length){
       nextVideo=0;
@@ -25,18 +29,30 @@ function initMap() {
       url: "https://videos-5a2ff.firebaseio.com/locations.json",
       success: function(data){
         listofVideos = shuffle(data);
-        console.log(data);
-        console.log(listofVideos);
         //drawMap(data[Math.floor(Math.random()*data.length)])
         playNextVideo();
       }
     });
   }
 
+  function loadInfoBubble() {
+    window.myInfoBubble.open(window.myMap, window.myMarker);
+    google.maps.event.addListener(window.myInfoBubble, 'domready', function() {
+      setTimeout(function() {
+        var ib = $('#infobubble-container-' + window.randomMarker.name.replace(/\s+/g, ''))
+        sliderLoad();
+        ib.addClass('animated zoomIn');
+        var videos = $(ib).find('#ul-slider li video');
+        var current = {
+          video: 2
+        };
+        hookVideo(videos, current.video, window.myInfoBubble, window.randomMarker.name);
+      }, 2000);
+    });
+  }
 
 
   function hookVideo(videos, index /* expects 1 based int */, infoBubble, markerName) {
-    console.log(videos);
     $(videos[index-1]).trigger('play');
     videos[index-1].addEventListener('ended', function(e) {
       if(index < videos.length) {
@@ -46,23 +62,40 @@ function initMap() {
         return hookVideo(videos, index, infoBubble, markerName);
       } else {
         index = 2;
-        infoBubble.close();
-        $('#infobubble-container-' + markerName.replace(/\s+/g, '')).remove();
-        return setTimeout( playNextVideo, 1000);
+        var ib = $('#infobubble-container-' + window.randomMarker.name.replace(/\s+/g, ''))
+        ib.addClass('animated zoomOut');
+        setTimeout(function(){
+          infoBubble.close()
+          $('#infobubble-container-' + markerName.replace(/\s+/g, '')).remove();
+        }, 1000);
+        return setTimeout( playNextVideo, 2000);
       }
     });
   }
 
-  function drawMap(randomMarker) {
-    window.myMap.panTo(new google.maps.LatLng(randomMarker.lat, randomMarker.lng));
+  function drawMap() {
+    var point = window.myMap.getCenter();
+                
+                
+    // window.myMap.panTo(new google.maps.LatLng(randomMarker.lat, randomMarker.lng));
+    window.easingAnimator.easeProp(
+      { // from
+        lat: point.lat(),
+        lng: point.lng()
+      },
+      { // to
+        lat: window.randomMarker.lat,
+        lng: window.randomMarker.lng
+      }
+    );
     // var infowindow = new google.maps.InfoWindow({
     //   content: randomMarker.content,
     //   //pixelOffset: new google.maps.Size(100,100)
     // });
-    var infoBubble = new InfoBubble({
+    window.myInfoBubble = new InfoBubble({
       maxHeight: 600,
       maxWidth: 600,
-      content: randomMarker.content,
+      content: window.randomMarker.content,
       backgroundColor: 'transparent',
       borderWidth: 0,
       borderColor: 'transparent',
@@ -76,31 +109,28 @@ function initMap() {
     //hack fix later 
     $(document).ready(function(){
       window.myMarker = new google.maps.Marker({
-        position: {lat:randomMarker.lat, lng:randomMarker.lng},
+        animation: google.maps.Animation.DROP,
+        position: {lat:window.randomMarker.lat, lng:window.randomMarker.lng},
+        //zoom: 20,
         map: window.myMap,
-        title: randomMarker.name
+        title: window.randomMarker.name
       });
       //never start on au
       //never replay same area x2
-      infoBubble.open(window.myMap, window.myMarker);
-      google.maps.event.addListener(infoBubble, 'domready', function() {
-        setTimeout(function() {
-          sliderLoad();
-          var ib = $('#infobubble-container-' + randomMarker.name.replace(/\s+/g, ''))
-          ib.css({ opacity: 1 });
-          var videos = $(ib).find('#ul-slider li video');
-          var current = {
-            video: 2
-          };
-          hookVideo(videos, current.video, infoBubble, randomMarker.name);
-        }, 2000);
-      });
+      
     });
   }
 
   window.myMap = window.myMap || new google.maps.Map(document.getElementById('map'), {
     center: {lat: -25.363, lng: 131.044},
     zoom: 4
+  });
+
+  window.easingAnimator = EasingAnimator.makeFromCallback(function(latLng, done){
+    window.myMap.setCenter(latLng);
+    if(done) {
+      loadInfoBubble();
+    }
   });
 
   //setTimeout(drawMap, 1000);

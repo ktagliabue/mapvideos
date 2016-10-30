@@ -7,11 +7,10 @@
         padding: 0;
       }
       .infobubble-transparent {
-        opacity: 0;
-        transition: opacity 1s;
+        visibility: hidden;
       }
       #infobubble-container {
-        visibility: hidden;
+       visibility: hidden;
       }
       #slider-container {
         position: relative;

@@ -11,7 +11,7 @@ function sliderLoad(){
 
   $('#ul-slider li:last-child').prependTo('#ul-slider');
 
-  $('#infobubble-container').css({ visibility: 'visible' });
+  $('.infobubble-transparent').css({ visibility: 'visible' });
 
   function moveLeft() {
     $('#ul-slider').animate({
