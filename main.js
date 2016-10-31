@@ -118,7 +118,7 @@ function initMap() {
       window.myMarker.setMap(null);
     }
     var image = {
-      url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+      // url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
       // This marker is 20 pixels wide by 32 pixels high.
       //size: new google.maps.Size(48, 86),
       // The origin for this image is (0, 0).

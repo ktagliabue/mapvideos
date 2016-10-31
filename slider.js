@@ -31,7 +31,9 @@ function sliderLoad(){
     }, 200, function () {
         $('#ul-slider li:first-child').appendTo('#ul-slider');
         $('#ul-slider').css('left', '');
+        // window.myMarker.setIcon($("#navlist li:first").find('img').attr('src'));
         $("#navlist li:first").detach().insertAfter("#navlist li:last");
+        // $("#navlist li:first").find('img').attr('src')
     });
   };
 
