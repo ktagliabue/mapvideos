@@ -7,7 +7,7 @@ function smoothZoom (map, max, cnt) {
             google.maps.event.removeListener(z);
             smoothZoom(map, max, cnt + 1);
         });
-        setTimeout(function(){map.setZoom(cnt)}, 2); // 80ms is what I found to work well on my system -- it might not work well on all systems
+        setTimeout(function(){map.setZoom(cnt)}, 130); // 80ms is what I found to work well on my system -- it might not work well on all systems
     }
 }  
 
@@ -151,7 +151,7 @@ function initMap() {
   window.easingAnimator = EasingAnimator.makeFromCallback(function(latLng, done){
     window.myMap.setCenter(latLng);
     if(done) {
-      smoothZoom(window.myMap, 20, window.myMap.getZoom());
+      smoothZoom(window.myMap, 15, window.myMap.getZoom());
       setTimeout(function() {
 
         loadInfoBubble();
