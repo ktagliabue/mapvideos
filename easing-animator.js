@@ -12,8 +12,8 @@ var EasingAnimator = function(opt){
 EasingAnimator.makeFromCallback = function(callBack){
     return new EasingAnimator({
         callBack: callBack,
-        duration: 2000,
-        step: 50
+        duration: 3000,
+        step: 30
     });
 };
 EasingAnimator.prototype.easeProp = function(obj, propDict){

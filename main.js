@@ -1,3 +1,16 @@
+function smoothZoom (map, max, cnt) {
+    if (cnt >= max) {
+        return;
+    }
+    else {
+        z = google.maps.event.addListener(map, 'zoom_changed', function(event){
+            google.maps.event.removeListener(z);
+            smoothZoom(map, max, cnt + 1);
+        });
+        setTimeout(function(){map.setZoom(cnt)}, 80); // 80ms is what I found to work well on my system -- it might not work well on all systems
+    }
+}  
+
 function shuffle(a) {
     var j, x, i;
     for (i = a.length; i; i--) {
@@ -47,7 +60,7 @@ function initMap() {
           video: 2
         };
         hookVideo(videos, current.video, window.myInfoBubble, window.randomMarker.name);
-      }, 2000);
+      }, 1000);
     });
   }
 
@@ -64,11 +77,13 @@ function initMap() {
         index = 2;
         var ib = $('#infobubble-container-' + window.randomMarker.name.replace(/\s+/g, ''))
         ib.addClass('animated zoomOut');
+        // console.log('zoomin out');
+        window.myMap.setZoom(4);
         setTimeout(function(){
           infoBubble.close()
           $('#infobubble-container-' + markerName.replace(/\s+/g, '')).remove();
         }, 1000);
-        return setTimeout( playNextVideo, 2000);
+        return setTimeout( playNextVideo, 1000);
       }
     });
   }
@@ -88,10 +103,6 @@ function initMap() {
         lng: window.randomMarker.lng
       }
     );
-    // var infowindow = new google.maps.InfoWindow({
-    //   content: randomMarker.content,
-    //   //pixelOffset: new google.maps.Size(100,100)
-    // });
     window.myInfoBubble = new InfoBubble({
       maxHeight: 600,
       maxWidth: 600,
@@ -106,14 +117,21 @@ function initMap() {
     if(window.myMarker){
       window.myMarker.setMap(null);
     }
+    var image = {
+      url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+      // This marker is 20 pixels wide by 32 pixels high.
+      //size: new google.maps.Size(48, 86),
+      // The origin for this image is (0, 0).
+    };
     //hack fix later 
     $(document).ready(function(){
       window.myMarker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: {lat:window.randomMarker.lat, lng:window.randomMarker.lng},
-        //zoom: 20,
+        zoom: 20,
         map: window.myMap,
-        title: window.randomMarker.name
+        title: window.randomMarker.name,
+        icon: image
       });
       //never start on au
       //never replay same area x2
@@ -129,7 +147,11 @@ function initMap() {
   window.easingAnimator = EasingAnimator.makeFromCallback(function(latLng, done){
     window.myMap.setCenter(latLng);
     if(done) {
-      loadInfoBubble();
+      smoothZoom(window.myMap, 10, window.myMap.getZoom());
+      setTimeout(function() {
+
+        loadInfoBubble();
+      }, 2000)
     }
   });
 
