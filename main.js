@@ -57,7 +57,7 @@ function initMap() {
         ib.addClass('animated zoomIn');
         var videos = $(ib).find('#ul-slider li video');
         var current = {
-          video: 2
+          video: 1
         };
         hookVideo(videos, current.video, window.myInfoBubble, window.randomMarker.name);
       }, 1000);
@@ -67,14 +67,18 @@ function initMap() {
 
   function hookVideo(videos, index /* expects 1 based int */, infoBubble, markerName) {
     $(videos[index-1]).trigger('play');
+    setTimeout(function() {
+      $('.infobubble-transparent').css({ visibility: 'visible' });
+    }, 2000);
+    // $('.infobubble-transparent').css({ visibility: 'visible' });
     videos[index-1].addEventListener('ended', function(e) {
       if(index < videos.length) {
         window.moveRight();
         index++;
-        $(videos[index-1]).trigger('play');
+        // $(videos[index-1]).trigger('play');
         return hookVideo(videos, index, infoBubble, markerName);
       } else {
-        index = 2;
+        index = 1;
         var ib = $('#infobubble-container-' + window.randomMarker.name.replace(/\s+/g, ''))
         ib.addClass('animated zoomOut');
         // console.log('zoomin out');
@@ -131,7 +135,7 @@ function initMap() {
         zoom: 20,
         map: window.myMap,
         title: window.randomMarker.name,
-        icon: image
+        // icon: image
       });
       //never start on au
       //never replay same area x2

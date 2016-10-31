@@ -7,11 +7,11 @@ function sliderLoad(){
 
   $('#slider-container').css({ width: slideWidth, height: slideHeight });
 
-  $('#ul-slider').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+  $('#ul-slider').css({ width: sliderUlWidth, marginLeft: 0 });
 
-  $('#ul-slider li:last-child').prependTo('#ul-slider');
+  //$('#ul-slider li:last-child').prependTo('#ul-slider');
 
-  $('.infobubble-transparent').css({ visibility: 'visible' });
+  // $('.infobubble-transparent').css({ visibility: 'visible' });
 
   function moveLeft() {
     $('#ul-slider').animate({
@@ -31,7 +31,7 @@ function sliderLoad(){
     }, 200, function () {
         $('#ul-slider li:first-child').appendTo('#ul-slider');
         $('#ul-slider').css('left', '');
-        // window.myMarker.setIcon($("#navlist li:first").find('img').attr('src'));
+        window.myMarker.setIcon($("#navlist li:first").find('img').attr('src'));
         $("#navlist li:first").detach().insertAfter("#navlist li:last");
         // $("#navlist li:first").find('img').attr('src')
     });
