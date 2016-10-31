@@ -7,7 +7,7 @@ function smoothZoom (map, max, cnt) {
             google.maps.event.removeListener(z);
             smoothZoom(map, max, cnt + 1);
         });
-        setTimeout(function(){map.setZoom(cnt)}, 80); // 80ms is what I found to work well on my system -- it might not work well on all systems
+        setTimeout(function(){map.setZoom(cnt)}, 2); // 80ms is what I found to work well on my system -- it might not work well on all systems
     }
 }  
 
@@ -60,7 +60,7 @@ function initMap() {
           video: 1
         };
         hookVideo(videos, current.video, window.myInfoBubble, window.randomMarker.name);
-      }, 1000);
+      }, 500);
     });
   }
 
@@ -69,7 +69,7 @@ function initMap() {
     $(videos[index-1]).trigger('play');
     setTimeout(function() {
       $('.infobubble-transparent').css({ visibility: 'visible' });
-    }, 2000);
+    }, 1000);
     // $('.infobubble-transparent').css({ visibility: 'visible' });
     videos[index-1].addEventListener('ended', function(e) {
       if(index < videos.length) {
@@ -132,7 +132,7 @@ function initMap() {
       window.myMarker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: {lat:window.randomMarker.lat, lng:window.randomMarker.lng},
-        zoom: 20,
+        zoom: 4,
         map: window.myMap,
         title: window.randomMarker.name,
         // icon: image
@@ -151,7 +151,7 @@ function initMap() {
   window.easingAnimator = EasingAnimator.makeFromCallback(function(latLng, done){
     window.myMap.setCenter(latLng);
     if(done) {
-      smoothZoom(window.myMap, 10, window.myMap.getZoom());
+      smoothZoom(window.myMap, 20, window.myMap.getZoom());
       setTimeout(function() {
 
         loadInfoBubble();
