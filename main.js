@@ -1,4 +1,5 @@
-function smoothZoom (map, max, cnt) {
+function smoothZoomX (map, max, cnt) {
+    alert("smooth zoom:" + cnt );
     if (cnt >= max) {
         return;
     }
@@ -6,9 +7,26 @@ function smoothZoom (map, max, cnt) {
         z = google.maps.event.addListener(map, 'zoom_changed', function(event){
             google.maps.event.removeListener(z);
             smoothZoom(map, max, cnt + 1);
+            alert("zoom changed:" + (cnt + 1));
         });
-        setTimeout(function(){map.setZoom(cnt)}, 130); // 80ms is what I found to work well on my system -- it might not work well on all systems
+
+        setTimeout(function(){map.setZoom(cnt); alert("set zoom:" + cnt ); }, 20); // 80ms is what I found to work well on my system -- it might not work well on all systems
     }
+}  
+
+function smoothZoom (map, max, cnt) {
+    if (cnt > max) {
+        return;
+    }
+    z = google.maps.event.addListener(map, 'zoom_changed', function(event){
+            google.maps.event.removeListener(z);
+            smoothZoom(map, max, cnt + 1);
+    });
+    var delay = 200 + cnt * 20;
+    if (cnt >= 12) {
+      delay = 500;
+    }
+    window.setTimeout(function(){console.log(delay); map.setZoom(cnt); map.setCenter(window.myMarker.getPosition());}, delay); // 80ms is what I found to work well on my system -- it might not work well on all systems  
 }  
 
 function shuffle(a) {
@@ -21,8 +39,6 @@ function shuffle(a) {
     }
     return a;
 }
-//marker drops then zoom then slider 
-//change marker with thumbnail of next video
 
 function initMap() {
   var listofVideos=[];
@@ -137,9 +153,6 @@ function initMap() {
         title: window.randomMarker.name,
         // icon: image
       });
-      //never start on au
-      //never replay same area x2
-      
     });
   }
 
@@ -155,7 +168,7 @@ function initMap() {
       setTimeout(function() {
 
         loadInfoBubble();
-      }, 2000)
+      }, 10000)
     }
   });
 
